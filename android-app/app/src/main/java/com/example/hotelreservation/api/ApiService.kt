@@ -65,4 +65,14 @@ interface ApiService {
         @Path("id") id: Long,
         @Query("dnd") dnd: Boolean
     ): Call<Customer>
+
+    // 🔹 ForgotPassword
+    @POST("api/auth/forgot-password")
+    fun forgotPassword(@Body body: Map<String, String>): Call<ApiResponse>
+
+    @POST("api/auth/verify-otp")
+    fun verifyOtp(@Body body: Map<String, String>): Call<ApiResponse>
+
+    @POST("api/auth/reset-password")
+    fun resetPassword(@Body body: Map<String, String>): Call<ApiResponse>
 }

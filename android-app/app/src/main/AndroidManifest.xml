@@ -18,6 +18,9 @@
         <activity android:name=".BookingActivity" />
         <activity android:name=".MyBookingsActivity" />
         <activity android:name=".SearchActivity" />
+        <activity android:name=".ForgotPasswordActivity" />
+        <activity android:name=".VerifyOtpActivity" />
+        <activity android:name=".ResetPasswordActivity" />
         <activity
             android:name=".CustomerActivity"
             android:exported="false" />

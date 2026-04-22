@@ -24,12 +24,17 @@ class MainActivity : AppCompatActivity() {
 
         val btnSignup = findViewById<Button>(R.id.btnSignup)
 
+        // ✅ Forgot Password
+        val tvForgotPassword = findViewById<TextView>(R.id.tvForgotPassword)
+        tvForgotPassword.setOnClickListener {
+            startActivity(Intent(this, ForgotPasswordActivity::class.java))
+        }
+
         btnSignup.setOnClickListener {
             startActivity(Intent(this, SignupActivity::class.java))
         }
 
         btnLogin.setOnClickListener {
-
             val email = etEmail.text.toString()
             val password = etPassword.text.toString()
 
@@ -47,28 +52,17 @@ class MainActivity : AppCompatActivity() {
 
             RetrofitClient.instance.loginCustomer(customer)
                 .enqueue(object : Callback<Customer> {
-
                     override fun onResponse(call: Call<Customer>, response: Response<Customer>) {
-
                         if (response.isSuccessful && response.body() != null) {
-
-                            val user = response.body()!!
-
-                            // ✅ SAVE USER SESSION
                             val session = SessionManager(this@MainActivity)
                             session.saveUser(response.body()!!.id!!)
-
                             Toast.makeText(this@MainActivity, "Login Successful", Toast.LENGTH_SHORT).show()
-
-                            // 🔥 NEW: GO TO SEARCH SCREEN INSTEAD OF ROOM LIST
                             startActivity(Intent(this@MainActivity, SearchActivity::class.java))
                             finish()
-
                         } else {
                             Toast.makeText(this@MainActivity, "Invalid credentials", Toast.LENGTH_SHORT).show()
                         }
                     }
-
                     override fun onFailure(call: Call<Customer>, t: Throwable) {
                         Toast.makeText(this@MainActivity, "Error: ${t.message}", Toast.LENGTH_LONG).show()
                     }
